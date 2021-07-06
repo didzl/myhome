@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
   <head th:fragment="head(title)">
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -17,7 +20,7 @@
     />
     <link
       href="starter-template.css"
-      th:href="@{/starter-template.css}"
+      th:href="@{/css/starter-template.css}"
       rel="stylesheet"
     />
 
@@ -72,10 +75,58 @@
                     </div>
                 </li> -->
         </ul>
-        <!-- <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
+        <a class="form-inline my-2 my-lg-0">
+          <!-- <input
+            class="form-control mr-sm-2"
+            type="text"
+            placeholder="Search"
+            aria-label="Search"
+          /> -->
+          <a
+            class="btn btn-secondary my-2 mr-2 my-sm-0"
+            th:href="@{/account/login}"
+            sec:authorize="!isAuthenticated()"
+          >
+            로그인
+          </a>
+        </a>
+        <a class="form-inline my-2 my-lg-0">
+          <!-- <input
+            class="form-control mr-sm-2"
+            type="text"
+            placeholder="Search"
+            aria-label="Search"
+          /> -->
+          <a
+            class="btn btn-secondary my-2 my-sm-0"
+            th:href="@{/account/register}"
+            sec:authorize="!isAuthenticated()"
+          >
+            회원가입
+          </a>
+        </a>
+        <form
+          class="form-inline my-2 my-lg-0"
+          sec:authorize="isAuthenticated()"
+          th:action="@{/logout}"
+          method="POST"
+        >
+          <!-- <input
+            class="form-control mr-sm-2"
+            type="text"
+            placeholder="Search"
+            aria-label="Search"
+          /> -->
+          <span class="text-white" sec:authentication="name">사용자 </span>
+          <span
+            class="text-white mx-2"
+            sec:authentication="principal.authorities"
+            >권한</span
+          >
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+            Logout
+          </button>
+        </form>
       </div>
     </nav>
   </body>
